@@ -20,5 +20,5 @@
 	<a href="room_reservation.php" class="button">Einen Raum Reservieren</a>
 </div>
 <script src="controller/rooms.js"></script>
-
+<script>loadRoomList();</script>
 <?php require "view/blocks/page_end.php"; ?>

@@ -24,7 +24,7 @@ function onRoomsLoadingError(request) {
 }
 
 function loadRoomList() {
-	loadRooms(onRoomsLoadedForList);
+	loadRoom(onRoomsLoadedForList);
 }
 
 function onRoomsLoadedForList() {

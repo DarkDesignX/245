@@ -24,7 +24,7 @@ function onParkingsLoadingError(request) {
 }
 
 function loadParkingList() {
-	loadParkings(onParkingsLoadedForList);
+	loadParking(onParkingsLoadedForList);
 }
 
 function onParkingsLoadedForList() {
