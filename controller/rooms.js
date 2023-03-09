@@ -30,7 +30,6 @@ function loadRoomList() {
 function onRoomsLoadedForList() {
 	roomsTable.innerHTML = "";
 
-	var room = JSON.parse(request.responseText);
 
 	for (var i = 0; i < rooms.length; i++) {
 		var roomRow = document.createElement("tr");
