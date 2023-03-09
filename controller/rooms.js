@@ -1,6 +1,33 @@
+var loadRoomsCallback = null;
 var roomsTable = document.getElementById("room-table");
 
+var rooms = [ ];
+
+function loadRoom(callback = null) {
+	loadRoomsCallback = callback;
+
+	sendRequest("GET", "API/V1/Rooms", onRoomsLoaded, onRoomsLoadingError);
+}
+
 function onRoomsLoaded(request) {
+	rooms = JSON.parse(request.responseText);
+
+	if (loadRoomsCallback) {
+		loadRoomsCallback();
+	}
+}
+
+function onRoomsLoadingError(request) {
+	if (request && request.status != 401) {
+		alert("Could not load the rooms because of the following error:\r\n\r\n" + request.responseText);
+	}
+}
+
+function loadRoomList() {
+	loadRooms(onRoomsLoadedForList);
+}
+
+function onRoomsLoadedForList() {
 	roomsTable.innerHTML = "";
 
 	var room = JSON.parse(request.responseText);
@@ -26,17 +53,3 @@ function onRoomsLoaded(request) {
 		roomRow.appendChild(seatsCell);
 	}
 }
-
-function onRoomsLoadingError(request) {
-	if (request.status == 401) {
-		return;
-	}
-
-	alert("Error: " + request.statusText);
-}
-
-function refreshRooms() {
-	sendRequest("GET", "API/V1/Rooms", onRoomsLoaded, onRoomsLoadingError);
-}
-
-refreshRooms();

@@ -1,35 +1,6 @@
-//needs fixing
-
-var loadRoomReservationsCallback = null;
 var roomsTable = document.getElementById("room-reservations-table");
 
-var rooms = [ ];
-
-function loadRoomReservations(callback = null) {
-	loadRoomReservationsCallback = callback;
-
-	sendRequest("GET", "API/V1/RoomReservations", onRoomReservationsLoaded, onRoomReservationsLoadingError);
-}
-
-function onRoomReservationsLoaded(request) {
-	rooms = JSON.parse(request.responseText);
-
-	if (loadRoomReservationsCallback) {
-		loadRoomReservationsCallback();
-	}
-}
-
-function onRoomReservationsLoadingError(request) {
-	if (request && request.status != 401) {
-		alert("Could not load the room reservation because of the following error:\r\n\r\n" + request.responseText);
-	}
-}
-
-function loadRoomReservationList() {
-	loadRoomReservations(onRoomReservationsLoadedForList);
-}
-
-function onRoomReservationsLoadedForList() {
+function onRoomReservationsLoaded() {
 	roomsTable.innerHTML = "";
 
 	for (var i = 0; i < rooms.length; i++) {
@@ -70,6 +41,14 @@ function onRoomReservationsLoadedForList() {
 	}
 }
 
+function onRoomReservationLoadingError(request) {
+	if (request.status == 401) {
+		return;
+	}
+
+	alert("Error: " + request.statusText);
+}
+
 function onDeleteButtonPressed(event) {
 	var id = event.currentTarget.getAttribute("roomReservation-id");
 	if (!confirm("Are you sure that you want to delete the room reservation with the ID " + id + "?")) {
@@ -85,4 +64,8 @@ function onRoomReservationDeleted(request) {
 
 function onRoomReservationDeletionError(request) {
 	alert("The room reservation could not be deleted. Please try again!");
+}
+
+function refreshRoomreservations() {
+	sendRequest("GET", "API/V1/AllRoomReservations", onRoomReservationsLoaded, onRoomReservationLoadingError);
 }

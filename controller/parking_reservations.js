@@ -1,6 +1,33 @@
+var loadParkingReservationsCallback = null;
 var parkingsTable = document.getElementById("parking-reservations-table");
 
-function onParkingsLoaded(request) {
+var parking_reservations = [ ];
+
+function loadParkingReservations(callback = null) {
+	loadParingReservationsCallback = callback;
+
+	sendRequest("GET", "API/V1/AllParkingReservations", onParkingReservationsLoaded, onParkingReservationLoadingError);
+}
+
+function onParkingReservationsLoaded(request) {
+	parking_reservations = JSON.parse(request.responseText);
+
+	if (loadParkingReservationsCallback){
+		loadParkingReservationsCallback();
+	}
+}
+
+function onParkingReservationLoadingError(request) {
+	if (request && request.status != 401) {
+		alert("Could not load the parking reservations because of the follwoing error:\r\n\r\n" +  request.responseText);
+	}
+}
+
+function loadParkingReservationList() {
+	loadParkingReservations(onParkingReservationsLoadedForList);
+}
+
+function onParkingReservationsLoadedForList(request) {
 	parkingsTable.innerHTML = "";
 
 	var parkings = JSON.parse(request.responseText);
@@ -38,7 +65,7 @@ function onParkingsLoaded(request) {
 		var editButton = document.createElement("a");
 		editButton.innerText = "Edit";
 		editButton.className = "button";
-		editButton.href = "reservations.php?parking_number=" + parkings[i].parking_number;
+		editButton.href = "parking_reservation.php?parking_number=" + parkings[i].parking_number;
 		actionsCell.appendChild(editButton);
 	}
 }
@@ -60,16 +87,10 @@ function onDeleteButtonPressed(event) {
 	sendRequest("DELETE", "API/v1/ParkingReservation/" + id, onParkingDeleted, onParkingDeletionError);
 }
 
-function onParkingDeleted(request) {
-	refreshParkings();
+function onParkingReservationDeleted(request) {
+	loadParkingReservationList();
 }
 
-function onParkingDeletionError(request) {
-	alert("The parking reservation could not be deleted. Please try again!");
+function onParkingReservationDeletionError(request) {
+	alert("the parking reservation could not be deleted. Please try again!")
 }
-
-function refreshParkings() {
-	sendRequest("GET", "API/v1/AllParkingReservations", onParkingsLoaded, onParkingsLoadingError);
-}
-
-refreshParkings();
