@@ -1,17 +1,20 @@
 var loadRoomsCallback = null;
-var roomsTable = document.getElementById("room-table");
+var roomsTable = document.getElementById("rooms-table");
 
 var rooms = [ ];
 
 function loadRoom(callback = null) {
 	loadRoomsCallback = callback;
 
-	sendRequest("GET", "API/V1/Rooms", onRoomsLoaded, onRoomsLoadingError);
+	sendRequest("GET", "API/v1/Rooms", onRoomsLoaded, onRoomsLoadingError);
 }
 
 function onRoomsLoaded(request) {
-	rooms = JSON.parse(request.responseText);
-
+	if (request.getResponseHeader('Content-Type').indexOf('application/json') !== -1) {
+		rooms = JSON.parse(request.responseText);
+	} else {
+		alert('Invalid response content type: ' + request.getResponseHeader('Content-Type'));
+	}
 	if (loadRoomsCallback) {
 		loadRoomsCallback();
 	}
@@ -30,7 +33,6 @@ function loadRoomList() {
 function onRoomsLoadedForList() {
 	roomsTable.innerHTML = "";
 
-
 	for (var i = 0; i < rooms.length; i++) {
 		var roomRow = document.createElement("tr");
 		roomsTable.appendChild(roomRow);
@@ -48,7 +50,7 @@ function onRoomsLoadedForList() {
 		roomRow.appendChild(floorCell);
 
 		var seatsCell = document.createElement("td");
-		seatsCell.innerText = rooms[i].stock;
+		seatsCell.innerText = rooms[i].seats;
 		roomRow.appendChild(seatsCell);
 	}
 }

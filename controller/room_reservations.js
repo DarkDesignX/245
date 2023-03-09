@@ -1,55 +1,56 @@
 var loadRoomReservationsCallback = null;
-var roomsTable = document.getElementById("room-reservations-table");
+var roomReservationTable = document.getElementById("room-reservations-table");
 
 var room_reservations = [ ];
 
-function loadRoomReservations(callback = null) {
-	loadParingReservationsCallback = callback;
+function loadRoomReservation(callback = null) {
+	loadRoomReservationsCallback = callback;
 
-	sendRequest("GET", "API/V1/AllRoomReservations", onRoomReservationsLoaded, onRoomReservationLoadingError);
+	sendRequest("GET", "API/v1/AllRoomReservations", onRoomReservationsLoaded, onRoomReservationsLoadingError);
 }
 
 function onRoomReservationsLoaded(request) {
-	room_reservations = JSON.parse(request.responseText);
-
-	if (loadRoomReservationsCallback){
+	if (request.getResponseHeader('Content-Type').indexOf('application/json') !== -1) {
+		room_reservations = JSON.parse(request.responseText);
+	} else {
+		alert('Invalid response content type: ' + request.getResponseHeader('Content-Type'));
+	}
+	if (loadRoomReservationsCallback) {
 		loadRoomReservationsCallback();
 	}
 }
 
-function onRoomReservationLoadingError(request) {
+function onRoomReservationsLoadingError(request) {
 	if (request && request.status != 401) {
 		alert("Could not load the room reservations because of the follwoing error:\r\n\r\n" +  request.responseText);
 	}
 }
 
 function loadRoomReservationList() {
-	loadRoomReservations(onRoomReservationsLoadedForList);
+	loadRoomReservation(onRoomReservationsLoadedForList);
 }
 
 function onRoomReservationsLoadedForList(request) {
-	roomsTable.innerHTML = "";
+	roomReservationTable.innerHTML = "";
 
-	var rooms = JSON.parse(request.responseText);
-
-	for (var i = 0; i < rooms.length; i++) {
+	for (var i = 0; i < room_reservations.length; i++) {
 		var roomRow = document.createElement("tr");
-		roomsTable.appendChild(roomRow);
+		roomReservationTable.appendChild(roomRow);
 
 		var roomNameCell = document.createElement("td");
-		roomNameCell.innerText = rooms[i].room_name;
+		roomNameCell.innerText = room_reservations[i].room_name;
 		roomRow.appendChild(roomNameCell);
 
 		var userNameCell = document.createElement("td");
-		userNameCell.innerText = rooms[i].name;
+		userNameCell.innerText = room_reservations[i].name;
 		roomRow.appendChild(userNameCell);
 
 		var timeStartCell = document.createElement("td");
-		timeStartCell.innerText = rooms[i].time_start;
+		timeStartCell.innerText = room_reservations[i].time_start;
 		roomRow.appendChild(timeStartCell);
 
 		var timeEndCell = document.createElement("td");
-		timeEndCell.innerText = rooms[i].time_end;
+		timeEndCell.innerText = room_reservations[i].time_end;
 		roomRow.appendChild(timeEndCell);
 
 		var actionsCell = document.createElement("td");
@@ -59,18 +60,18 @@ function onRoomReservationsLoadedForList(request) {
 		deleteButton.innerText = "Delete";
 		deleteButton.onclick = onDeleteButtonPressed;
 		deleteButton.className = "destructive";
-		deleteButton.setAttribute("room-name", rooms[i].room_name);
+		deleteButton.setAttribute("room-id", room_reservations[i].room_reservation_id);
 		actionsCell.appendChild(deleteButton);
 
 		var editButton = document.createElement("a");
 		editButton.innerText = "Edit";
 		editButton.className = "button";
-		editButton.href = "room_reservation.php?room_name=" + rooms[i].room_name;
+		editButton.href = "room_reservation.php?id=" + room_reservations[i].room_reservation_id;
 		actionsCell.appendChild(editButton);
 	}
 }
 
-function onRoomsLoadingError(request) {
+function onRoomReservationsLoadingError(request) {
 	if (request.status == 401) {
 		return;
 	}
@@ -79,12 +80,12 @@ function onRoomsLoadingError(request) {
 }
 
 function onDeleteButtonPressed(event) {
-	var id = event.currentTarget.getAttribute("room-name");
-	if (!confirm("Are you sure that you want to delete the room reservation with the room name " + id + "?")) {
+	var id = event.currentTarget.getAttribute("room-id");
+	if (!confirm("Are you sure that you want to delete the room reservation with the room id " + id + "?")) {
 		return;
 	}
 
-	sendRequest("DELETE", "API/v1/RoomReservation/" + id, onRoomDeleted, onRoomDeletionError);
+	sendRequest("DELETE", "API/v1/RoomReservation/" + id, onRoomReservationDeleted, onRoomReservationDeletionError);
 }
 
 function onRoomReservationDeleted(request) {

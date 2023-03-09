@@ -1,17 +1,20 @@
 var loadParkingsCallback = null;
-var parkingsTable = document.getElementById("parking-table");
+var parkingsTable = document.getElementById("parkings-table");
 
 var parkings = [ ];
 
 function loadParking(callback = null) {
 	loadParkingsCallback = callback;
 
-	sendRequest("GET", "API/V1/Parkings", onParkingsLoaded, onParkingsLoadingError);
+	sendRequest("GET", "API/v1/Parkings", onParkingsLoaded, onParkingsLoadingError);
 }
 
 function onParkingsLoaded(request) {
-	parkings = JSON.parse(request.responseText);
-
+	if (request.getResponseHeader('Content-Type').indexOf('application/json') !== -1) {
+		parkings = JSON.parse(request.responseText);
+	} else {
+		alert('Invalid response content type: ' + request.getResponseHeader('Content-Type'));
+	}
 	if (loadParkingsCallback) {
 		loadParkingsCallback();
 	}
@@ -30,18 +33,12 @@ function loadParkingList() {
 function onParkingsLoadedForList() {
 	parkingsTable.innerHTML = "";
 
-	var parkings = JSON.parse(request.responseText);
-
 	for (var i = 0; i < parkings.length; i++) {
-		var parkingsRow = document.createElement("tr");
-		parkingsTable.appendChild(parkingsRow);
-
-		var idCell = document.createElement("td");
-		idCell.innerText = parkings[i].id;
-		parkingsRow.appendChild(idCell);
+		var parkingRow = document.createElement("tr");
+		parkingsTable.appendChild(parkingRow);
 
 		var positionCell = document.createElement("td");
 		positionCell.innerText = parkings[i].position;
-		parkingsRow.appendChild(positionCell);
+		parkingRow.appendChild(positionCell);
 	}
 }

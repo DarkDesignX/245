@@ -8,11 +8,10 @@
 			<th>Parking Position</th>
 		</tr>
 	</thead>
-	<tbody id="rooms-table"></tbody>
+	<tbody id="parkings-table"></tbody>
 </table>
-<br>
-<br>
-<br>
+<br><br/>
+
 <div style="margin-bottom: 2em;">
 	<a href="parking_reservation.php" class="button">Einen Parkplatz reservieren</a>
 </div>

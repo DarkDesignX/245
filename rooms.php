@@ -13,9 +13,8 @@
 	</thead>
 	<tbody id="rooms-table"></tbody>
 </table>
-<br>
-<br>
-<br>
+<br><br/>
+
 <div style="margin-bottom: 2em;">
 	<a href="room_reservation.php" class="button">Einen Raum Reservieren</a>
 </div>
