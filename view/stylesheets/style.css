@@ -121,22 +121,22 @@ input:not([type="checkbox"]), textarea {
 }
 
 footer {
-	background-color: rgb(242, 242, 242);
-	border-radius: 1em;
-	margin-top: 10em;
-	left: 1em;
-	right: 1em;
-	top: 1em;
+    margin-top: auto;
+    background-color: black;
+    color: white;
+    width: 98%;
+    border-radius: 1em;
+    position: absolute;
+    left: 1em;
 }
 
 footer p{
-	margin-right: 50px;
-	margin-left: 50px;
-	display: inline-block;
+    display: inline-block;
+    margin-left: 50px;
+    text-decoration: none;
 }
 
 footer a{
-	text-decoration: none;
-	color: #000000;
+	color: white;
 }
 
