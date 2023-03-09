@@ -1,4 +1,6 @@
-var parking_number = null;
+//nees fixing
+
+var parking_reservation_id = null;
 
 var userNameField = document.getElementById("name-field");
 var startTimeField = document.getElementById("start-time-field");
@@ -46,24 +48,25 @@ function onParkingReservationLoadingError(request) {
 	}
 }
 
+//needs fixing
 function onParkingsLoadedCallback() {
-	for (var i = 0; i < parkings.length; i++) {
+	for (var i = 0; i < parking.length; i++) {
 		var parkingOption = document.createElement("option");
-		parkingOption.value = parkings[i].id;
-		parkingOption.innerText = parkings[i].position;
+		parkingOption.value = parking[i].id;
+		parkingOption.innerText = parking[i].position;
 		parkingSelect.appendChild(parkingOption);
 	}
 
 	var searchKeyValuePairs = window.location.search.substring(1).split("&");
 	for (var i = 0; i < searchKeyValuePairs.length; i++) {
 		var splitted = searchKeyValuePairs[i].split("=");
-		if (splitted[0] == "parking_number" && splitted.length > 1) {
-			parking_number = splitted[1];
+		if (splitted[0] == "parking_reservation_id" && splitted.length > 1) {
+			parking_reservation_id = splitted[1];
 		}
 	}
 
-	if (parking_number) {
-		sendRequest("GET", "API/v1/ParkingReservation/" + parking_number, onParkingReservationLoaded, onParkingReservationLoadingError);
+	if (parking_reservation_id) {
+		sendRequest("GET", "API/v1/ParkingReservation/" + parking_reservation_id, onParkingReservationLoaded, onParkingReservationLoadingError);
 
 		parkingNumberSelect.disabled = true;
 	}

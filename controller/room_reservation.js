@@ -1,4 +1,6 @@
-var room_name = null;
+//nees fixing
+
+var room_reservation_id = null;
 
 var userNameField = document.getElementById("name-field");
 var startTimeField = document.getElementById("start-time-field");
@@ -46,24 +48,25 @@ function onRoomReservationLoadingError(request) {
 	}
 }
 
+//needs fixing
 function onRoomsLoadedCallback() {
-	for (var i = 0; i < rooms.length; i++) {
+	for (var i = 0; i < room.length; i++) {
 		var roomOption = document.createElement("option");
-		roomOption.value = rooms[i].id;
-		roomOption.innerText = rooms[i].name;
+		roomOption.value = room[i].id;
+		roomOption.innerText = room[i].name;
 		roomSelect.appendChild(roomOption);
 	}
 
 	var searchKeyValuePairs = window.location.search.substring(1).split("&");
 	for (var i = 0; i < searchKeyValuePairs.length; i++) {
 		var splitted = searchKeyValuePairs[i].split("=");
-		if (splitted[0] == "room_name" && splitted.length > 1) {
-			room_name = splitted[1];
+		if (splitted[0] == "room_reservation_id" && splitted.length > 1) {
+			room_reservation_id = splitted[1];
 		}
 	}
 
-	if (room_name) {
-		sendRequest("GET", "API/v1/RoomReservation/" + room_name, onRoomReservationLoaded, onRoomReservationLoadingError);
+	if (room_reservation_id) {
+		sendRequest("GET", "API/v1/RoomReservation/" + room_reservation_id, onRoomReservationLoaded, onRoomReservationLoadingError);
 
 		roomNameSelect.disabled = true;
 	}
