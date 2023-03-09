@@ -37,6 +37,10 @@ function onRoomReservationsLoadedForList(request) {
 		var roomRow = document.createElement("tr");
 		roomReservationTable.appendChild(roomRow);
 
+		var roomReservationCell = document.createElement("td");
+		roomReservationCell.innerText = room_reservations[i].room_reservation;
+		roomRow.appendChild(roomReservationCell);
+
 		var roomNameCell = document.createElement("td");
 		roomNameCell.innerText = room_reservations[i].room_name;
 		roomRow.appendChild(roomNameCell);

@@ -4,6 +4,11 @@
 
 <form onsubmit="onEditRoomReservationFormSubmitted(event);">
 	<div class="field">
+		<label for="room-reservation-field">Reservation: </label>
+		<input type="text" id="room-reservation-field" required>
+	</div>	
+
+	<div class="field">
 		<label for="room-name-select">Raum Name: </label>
         <select id="room-name-select" required>
 			<option value="">(Keine Räume)</option>

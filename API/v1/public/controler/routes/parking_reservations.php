@@ -45,11 +45,18 @@
 
         $request_body_string = file_get_contents("php://input");
         $request_data = json_decode($request_body_string, true);
+        $parking_reservation = trim($request_data["parking_reservation"]);
         $parking_number = trim($request_data["parking_number"]);
         $name = trim($request_data["name"]);
         $time_start = trim($request_data["time_start"]);
         $time_end = trim($request_data["time_end"]);
     
+        if (empty($parking_reservation)) {
+            error_function(400, "The (parking_reservation) field must not be empty.");
+        } elseif (strlen($parking_reservation) > 100) {
+            error_function(400, "The (parking_reservation) field must be less than 256 characters.");
+        }
+
         if (empty($parking_number)) {
             error_function(400, "The (parking_number) field must not be empty.");
         } elseif (!ctype_digit($parking_number)) {
@@ -99,6 +106,14 @@
 		$request_body_string = file_get_contents("php://input");
 		
 		$request_data = json_decode($request_body_string, true);
+
+        if (isset($request_data["parking_reservation"])) {
+			$parking_reservation = strip_tags(addslashes($request_data["parking_reservation"]));
+			if (strlen($parking_reservation) > 100) {
+                error_function(400, "The (parking_reservation) field must be less than 100 characters.");
+            }
+            $parking["parking_reservation"] = $parking_reservation;
+        }
 
         if (isset($request_data["parking_number"])) {
 			$parking_number = strip_tags(addslashes($request_data["parking_number"]));

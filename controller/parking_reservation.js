@@ -1,7 +1,6 @@
-//nees fixing
+var sku = null;
 
-var parking_reservation_id = null;
-
+var reservationField = document.getElementById("parking-reservation-field");
 var userNameField = document.getElementById("name-field");
 var startTimeField = document.getElementById("start-time-field");
 var endTimeField = document.getElementById("end-time-field");
@@ -12,6 +11,7 @@ function onEditParkingReservationFormSubmitted(event) {
 	event.preventDefault();
 
 	var parking_reservation = {
+		reservation: reservationField.value,
 		name: userNameField.value,
 		startTime: startTimeField.value,
 		endTime: endTimeField.value,
@@ -35,6 +35,7 @@ function onParkingReservationSavingError(request) {
 function onParkingReservationLoaded(request) {
 	var parking_reservation = JSON.parse(request.responseText);
 
+	reservationField.value = parking_reservation.room_reservation,
 	userNameField.value = parking_reservation.name;
 	startTimeField.value = parking_reservation.time_start;
 	endTimeField.value = parking_reservation.time_end;
@@ -60,13 +61,13 @@ function onParkingsLoadedCallback() {
 	var searchKeyValuePairs = window.location.search.substring(1).split("&");
 	for (var i = 0; i < searchKeyValuePairs.length; i++) {
 		var splitted = searchKeyValuePairs[i].split("=");
-		if (splitted[0] == "parking_reservation_id" && splitted.length > 1) {
-			parking_reservation_id = splitted[1];
+		if (splitted[0] == "sku" && splitted.length > 1) {
+			sku = splitted[1];
 		}
 	}
 
-	if (parking_reservation_id) {
-		sendRequest("GET", "API/v1/ParkingReservation/" + parking_reservation_id, onParkingReservationLoaded, onParkingReservationLoadingError);
+	if (sku) {
+		sendRequest("GET", "API/v1/ParkingReservation/" + sku, onParkingReservationLoaded, onParkingReservationLoadingError);
 
 		parkingNumberSelect.disabled = true;
 	}

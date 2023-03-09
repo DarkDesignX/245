@@ -45,15 +45,22 @@
 
         $request_body_string = file_get_contents("php://input");
         $request_data = json_decode($request_body_string, true);
+        $room_reservation = trim($request_data["room_reservation"]);
         $room_name = trim($request_data["room_name"]);
         $name = trim($request_data["name"]);
         $time_start = trim($request_data["time_start"]);
         $time_end = trim($request_data["time_end"]);
 
+        if (empty($room_reservation)) {
+            error_function(400, "The (room_reservation) field must not be empty.");
+        } elseif (strlen($room_reservation) > 100) {
+            error_function(400, "The (room_reservation) field must be less than 100 characters.");
+        }
+
         if (empty($room_name)) {
             error_function(400, "The (room_name) field must not be empty.");
         } elseif (strlen($room_name) > 50) {
-            error_function(400, "The (room_name) field must be less than 256 characters.");
+            error_function(400, "The (room_name) field must be less than 50 characters.");
         }
 
         if (empty($name)) {
@@ -97,6 +104,15 @@
 		$request_body_string = file_get_contents("php://input");
 		
 		$request_data = json_decode($request_body_string, true);
+
+        if (isset($request_data["room_reservation"])) {
+			$room_reservation = strip_tags(addslashes($request_data["room_reservation"]));
+			if (strlen($room_reservation) > 100) {
+                error_function(400, "The (room_reservation) field must be less than 100 characters.");
+            }
+            $room["room_reservation"] = $room_reservation;
+
+        }
 
         if (isset($request_data["room_name"])) {
 			$room_name = strip_tags(addslashes($request_data["room_name"]));
