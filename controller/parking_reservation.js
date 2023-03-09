@@ -21,7 +21,7 @@ function onEditParkingReservationFormSubmitted(event) {
 }
 
 function onParkingReservationSaved(request) {
-	window.open("reservations.php", "_self");
+	window.open("parking_reservations.php", "_self");
 }
 
 function onParkingReservationSavingError(request) {

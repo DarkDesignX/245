@@ -21,7 +21,7 @@ function onEditRoomReservationFormSubmitted(event) {
 }
 
 function onRoomReservationSaved(request) {
-	window.open("reservations.php", "_self");
+	window.open("room_reservations.php", "_self");
 }
 
 function onRoomReservationSavingError(request) {

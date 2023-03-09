@@ -32,24 +32,24 @@ function onRoomsLoadedForList() {
 
 	var room = JSON.parse(request.responseText);
 
-	for (var i = 0; i < room.length; i++) {
+	for (var i = 0; i < rooms.length; i++) {
 		var roomRow = document.createElement("tr");
 		roomsTable.appendChild(roomRow);
 
 		var roomNameCell = document.createElement("td");
-		roomNameCell.innerText = room[i].name;
+		roomNameCell.innerText = rooms[i].name;
 		roomRow.appendChild(roomNameCell);
 
 		var descriptionCell = document.createElement("td");
-		descriptionCell.innerText = room[i].description;
+		descriptionCell.innerText = rooms[i].description;
 		roomRow.appendChild(descriptionCell);
 
 		var floorCell = document.createElement("td");
-		floorCell.innerText = room[i].floor;
+		floorCell.innerText = rooms[i].floor;
 		roomRow.appendChild(floorCell);
 
 		var seatsCell = document.createElement("td");
-		seatsCell.innerText = room[i].stock;
+		seatsCell.innerText = rooms[i].stock;
 		roomRow.appendChild(seatsCell);
 	}
 }

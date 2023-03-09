@@ -30,6 +30,8 @@ function loadParkingList() {
 function onParkingsLoadedForList() {
 	parkingsTable.innerHTML = "";
 
+	var parkings = JSON.parse(request.responseText);
+
 	for (var i = 0; i < parkings.length; i++) {
 		var parkingsRow = document.createElement("tr");
 		parkingsTable.appendChild(parkingsRow);
@@ -38,8 +40,8 @@ function onParkingsLoadedForList() {
 		idCell.innerText = parkings[i].id;
 		parkingsRow.appendChild(idCell);
 
-		var poisitionCell = document.createElement("td");
-		poisitionCell.innerText = parkings[i].position;
-		parkingsRow.appendChild(poisitionCell);
+		var positionCell = document.createElement("td");
+		positionCell.innerText = parkings[i].position;
+		parkingsRow.appendChild(positionCell);
 	}
 }
