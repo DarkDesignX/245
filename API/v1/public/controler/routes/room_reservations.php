@@ -50,6 +50,7 @@
         $name = trim($request_data["name"]);
         $time_start = trim($request_data["time_start"]);
         $time_end = trim($request_data["time_end"]);
+        $comment = trim($request_data["comment"]);
 
         if (empty($room_reservation)) {
             error_function(400, "The (room_reservation) field must not be empty.");
@@ -80,8 +81,14 @@
         } elseif (strlen($time_end) > 256) {
             error_function(400, "The (time_end) field must be less than 256 characters.");
         }
+
+        if (empty($comment)) {
+            error_function(400, "The (comment) field must not be empty.");
+        } elseif (strlen($comment) > 1000) {
+            error_function(400, "The (comment) field must be less than 256 characters.");
+        }
     
-        if (create_room_reservation($room_number, $room_name, $name, $time_start, $time_end) === true) {
+        if (create_room_reservation($room_number, $room_name, $name, $time_start, $time_end, $comment) === true) {
             message_function(200, "The room reservation was succsessfuly created.");
         } else {
             error_function(500, "An error occurred while saving the new reservation.");
@@ -146,8 +153,16 @@
 			}
 			$room["time_end"] = $time_end;
 		}
+
+        if (isset($request_data["comment"])) {
+			$comment = strip_tags(addslashes($request_data["comment"]));
+			if (strlen($comment) > 1000) {
+				error_funciton(400, "The (time_end) field must be less than 1000 characters.");
+			}
+			$room["comment"] = $comment;
+		}
 		
-		if (update_room_reservation($id, $room["room_number"], $room["room_name"], $room["name"], $room["time_start"], $room["time_end"])) {
+		if (update_room_reservation($id, $room["room_resrvation"], $room["room_number"], $room["room_name"], $room["name"], $room["time_start"], $room["time_end"], $room["comment"])) {
 			message_function(200, "The room reservation data were successfully updated");
 		}
 		else {

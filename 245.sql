@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 08. Mrz 2023 um 17:27
+-- Erstellungszeit: 09. Mrz 2023 um 22:19
 -- Server-Version: 10.4.25-MariaDB
 -- PHP-Version: 8.1.10
 
@@ -57,6 +57,7 @@ INSERT INTO `parking` (`id`, `position`) VALUES
 
 CREATE TABLE `parking_reservations` (
   `parking_reservation_id` int(11) NOT NULL,
+  `parking_reservation` varchar(100) NOT NULL,
   `parking_number` int(11) NOT NULL,
   `name` varchar(256) NOT NULL,
   `time_start` datetime NOT NULL,
@@ -68,11 +69,9 @@ CREATE TABLE `parking_reservations` (
 -- Daten für Tabelle `parking_reservations`
 --
 
-INSERT INTO `parking_reservations` (`parking_reservation_id`, `parking_number`, `name`, `time_start`, `time_end`, `comment`) VALUES
-(1, 1, 'Björn Hari', '2023-03-06 10:04:34', '2023-03-06 11:00:00', ''),
-(2, 2, 'Denis Basler', '2023-03-07 08:00:00', '2023-03-07 16:15:00', ''),
-(3, 3, 'Morhaf Alnhlawe', '2023-03-08 08:00:00', '2023-03-08 12:00:00', ''),
-(5, 5, 'Eva Scarton', '2023-03-10 10:00:30', '2023-03-10 12:00:00', '');
+INSERT INTO `parking_reservations` (`parking_reservation_id`, `parking_reservation`, `parking_number`, `name`, `time_start`, `time_end`, `comment`) VALUES
+(2, 'Nachholung English Exam\r\n', 2, 'Denis Basler', '2023-03-07 08:00:00', '2023-03-07 16:15:00', ''),
+(3, 'Vertrag unterschreiben', 3, 'Morhaf Alnhlawe', '2023-03-08 08:00:00', '2023-03-08 12:00:00', '');
 
 -- --------------------------------------------------------
 
@@ -113,6 +112,7 @@ INSERT INTO `room` (`id`, `name`, `description`, `floor`, `seats`) VALUES
 
 CREATE TABLE `room_reservations` (
   `room_reservation_id` int(11) NOT NULL,
+  `room_reservation` varchar(100) NOT NULL,
   `room_name` varchar(50) NOT NULL,
   `name` varchar(256) NOT NULL,
   `time_start` datetime NOT NULL,
@@ -124,11 +124,8 @@ CREATE TABLE `room_reservations` (
 -- Daten für Tabelle `room_reservations`
 --
 
-INSERT INTO `room_reservations` (`room_reservation_id`, `room_name`, `name`, `time_start`, `time_end`, `comment`) VALUES
-(1, 'Cambridge', 'Björn Hari', '2023-03-08 13:00:00', '2023-03-08 15:00:00', ''),
-(2, 'Sorbonne', 'Denis Basler', '2023-03-10 14:00:00', '2023-03-06 20:00:00', ''),
-(3, 'Rubin', 'Morhaf Alnhlawe', '2023-03-09 08:30:00', '2023-03-09 10:00:00', ''),
-(6, 'Oxford', 'Manuel Schibli', '2023-03-10 08:30:00', '2023-03-10 16:15:00', '');
+INSERT INTO `room_reservations` (`room_reservation_id`, `room_reservation`, `room_name`, `name`, `time_start`, `time_end`, `comment`) VALUES
+(3, 'Besprechung mit Herr Müller', 'Rubin', 'Morhaf Alnhlawe', '2023-03-09 08:30:00', '2023-03-09 10:00:00', '');
 
 -- --------------------------------------------------------
 

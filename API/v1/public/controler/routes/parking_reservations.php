@@ -50,6 +50,7 @@
         $name = trim($request_data["name"]);
         $time_start = trim($request_data["time_start"]);
         $time_end = trim($request_data["time_end"]);
+        $comment = trim($request_data["comment"]);
     
         if (empty($parking_reservation)) {
             error_function(400, "The (parking_reservation) field must not be empty.");
@@ -82,8 +83,14 @@
         } elseif (strlen($time_end) > 256) {
             error_function(400, "The (time_end) field must be less than 256 characters.");
         }
+
+        if (empty($comment)) {
+            error_function(400, "The (comment) field must not be empty.");
+        } elseif (strlen($comment) > 1000) {
+            error_function(400, "The (comment) field must be less than 256 characters.");
+        }
     
-        if (create_parking_reservation($parking_number, $name, $time_start, $time_end) === true) {
+        if (create_parking_reservation($parking_number, $name, $time_start, $time_end, $comment) === true) {
             message_function(200, "The parking reservation was succsessfuly created.");
         } else {
             error_function(500, "An error occurred while saving the new reservation.");
@@ -146,8 +153,16 @@
 			}
 			$parking["time_end"] = $time_end;
 		}
+
+        if (isset($request_data["comment"])) {
+			$comment = strip_tags(addslashes($request_data["comment"]));
+			if (strlen($comment) > 1000) {
+				error_funciton(400, "The (comment) field must be less than 1000 characters.");
+			}
+			$parking["comment"] = $comment;
+		}
 		
-		if (update_parking_reservation($id, $parking["parking_number"], $parking["name"], $parking["time_start"], $parking["time_end"])) {
+		if (update_parking_reservation($id, $parking["parking_reservation"], $parking["parking_number"], $parking["name"], $parking["time_start"], $parking["time_end"], $parking["comment"])) {
 			message_function(200, "The parking reservation data were successfully updated");
 		}
 		else {

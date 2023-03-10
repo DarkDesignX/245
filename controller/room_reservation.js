@@ -1,4 +1,4 @@
-var sku = null;
+var id = null;
 
 var reservationField = document.getElementById("room-reservation-field");
 var userNameField = document.getElementById("name-field");
@@ -19,7 +19,13 @@ function onEditRoomReservationFormSubmitted(event) {
 		room_name: roomNameSelect.value
 	};
 
-	sendRequest("PUT", "API/v1/RoomReservation/" + roomNameSelect.value, onRoomReservationSaved, onRoomReservationSavingError, room_reservation);
+	if (id) {
+		sendRequest("PUT", "API/v1/RoomReservation/" + id, onRoomReservationSaved, onRoomReservationSavingError, room_reservation);
+	}
+	else {
+		sendRequest("POST", "API/v1/RoomReservation", onRoomReservationSaved, onRoomReservationSavingError, room_reservation);
+	}
+
 }
 
 function onRoomReservationSaved(request) {
@@ -51,28 +57,23 @@ function onRoomReservationLoadingError(request) {
 
 //needs fixing
 function onRoomsLoadedCallback() {
-	for (var i = 0; i < room.length; i++) {
+	for (var i = 0; i < rooms.length; i++) {
 		var roomOption = document.createElement("option");
-		roomOption.value = room[i].id;
-		roomOption.innerText = room[i].name;
-		roomSelect.appendChild(roomOption);
+		roomOption.value = rooms[i].id;
+		roomOption.innerText = rooms[i].name;
+		roomNameSelect.appendChild(roomOption);
 	}
 
 	var searchKeyValuePairs = window.location.search.substring(1).split("&");
 	for (var i = 0; i < searchKeyValuePairs.length; i++) {
 		var splitted = searchKeyValuePairs[i].split("=");
-		if (splitted[0] == "sku" && splitted.length > 1) {
-			sku = splitted[1];
+		if (splitted[0] == "id" && splitted.length > 1) {
+			id = splitted[1];
 		}
 	}
 
-	if (sku) {
-		sendRequest("GET", "API/v1/RoomReservation/" + sku, onRoomReservationLoaded, onRoomReservationLoadingError);
-
-		roomNameSelect.disabled = true;
-	}
-	else {
-		roomNameSelect.disabled = false;
+	if (id) {
+		sendRequest("GET", "API/v1/RoomReservation/" + id, onRoomReservationLoaded, onRoomReservationLoadingError);
 	}
 }
 
