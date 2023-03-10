@@ -1,7 +1,11 @@
+<!--Titel for website-->
 <?php $page_title = "CsBe - BDM AG - Parking Reservation"; ?>
+
+<!--connect with page_start.php-->
 <?php require "view/blocks/page_start.php"; ?>
 <h1 id="title">Parkplatz Reservation </h1>
 
+<!--div to select Parking Number-->
 <form onsubmit="onEditParkingReservationFormSubmitted(event);">
 	<div class="field">
 		<label for="parking-number-select">Parkplatz: </label>
@@ -10,11 +14,13 @@
 		</select>
 	</div>
 
+	<!--div to select renter name-->
     <div class="field">
 		<label for="name-field">Name: </label>
 		<input type="text" id="name-field" required>
 	</div>
 
+	<!--div to select Parking Start Time-->
 	<div class="field">
         <label for="start-time-field">Start Time: </label>
 		<input type="datetime-local" id="start-time" required>
@@ -37,4 +43,6 @@
 
 <script src="controller/parkings.js"></script>
 <script src="controller/parking_reservation.js"></script>
+
+<!--connect with page_end.php-->
 <?php require "view/blocks/page_end.php"; ?>
