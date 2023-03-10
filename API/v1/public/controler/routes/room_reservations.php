@@ -50,16 +50,24 @@
 
         $request_body_string = file_get_contents("php://input");
         $request_data = json_decode($request_body_string, true);
+        $room_reservation = trim($request_data["room_reservation"]);
         $room_name = trim($request_data["room_name"]);
         $name = trim($request_data["name"]);
         $time_start = trim($request_data["time_start"]);
         $time_end = trim($request_data["time_end"]);
+        $comment = trim($request_data["comment"]);
+
+        if (empty($room_reservation)) {
+            error_function(400, "The (room_reservation) field must not be empty.");
+        } elseif (strlen($room_reservation) > 100) {
+            error_function(400, "The (room_reservation) field must be less than 100 characters.");
+        }
 
         //send a error by empty room name
         if (empty($room_name)) {
             error_function(400, "The (room_name) field must not be empty.");
         } elseif (strlen($room_name) > 50) {
-            error_function(400, "The (room_name) field must be less than 256 characters.");
+            error_function(400, "The (room_name) field must be less than 50 characters.");
         }
 
         //send a error by empty renter name
@@ -82,9 +90,19 @@
         } elseif (strlen($time_end) > 256) {
             error_function(400, "The (time_end) field must be less than 256 characters.");
         }
+
+        if (empty($comment)) {
+            error_function(400, "The (comment) field must not be empty.");
+        } elseif (strlen($comment) > 1000) {
+            error_function(400, "The (comment) field must be less than 256 characters.");
+        }
     
+<<<<<<< HEAD
         //send a success message or an error
         if (create_room_reservation($room_number, $room_name, $name, $time_start, $time_end) === true) {
+=======
+        if (create_room_reservation($room_number, $room_name, $name, $time_start, $time_end, $comment) === true) {
+>>>>>>> 10571c31b697ea17f560df668775fa9412bf661c
             message_function(200, "The room reservation was succsessfuly created.");
         } else {
             error_function(500, "An error occurred while saving the new reservation.");
@@ -110,7 +128,19 @@
 		
 		$request_data = json_decode($request_body_string, true);
 
+<<<<<<< HEAD
         //a lot characters errors
+=======
+        if (isset($request_data["room_reservation"])) {
+			$room_reservation = strip_tags(addslashes($request_data["room_reservation"]));
+			if (strlen($room_reservation) > 100) {
+                error_function(400, "The (room_reservation) field must be less than 100 characters.");
+            }
+            $room["room_reservation"] = $room_reservation;
+
+        }
+
+>>>>>>> 10571c31b697ea17f560df668775fa9412bf661c
         if (isset($request_data["room_name"])) {
 			$room_name = strip_tags(addslashes($request_data["room_name"]));
 			if (strlen($room_name) > 256) {
@@ -143,8 +173,16 @@
 			}
 			$room["time_end"] = $time_end;
 		}
+
+        if (isset($request_data["comment"])) {
+			$comment = strip_tags(addslashes($request_data["comment"]));
+			if (strlen($comment) > 1000) {
+				error_funciton(400, "The (time_end) field must be less than 1000 characters.");
+			}
+			$room["comment"] = $comment;
+		}
 		
-		if (update_room_reservation($id, $room["room_number"], $room["room_name"], $room["name"], $room["time_start"], $room["time_end"])) {
+		if (update_room_reservation($id, $room["room_resrvation"], $room["room_number"], $room["room_name"], $room["name"], $room["time_start"], $room["time_end"], $room["comment"])) {
 			message_function(200, "The room reservation data were successfully updated");
 		}
 		else {

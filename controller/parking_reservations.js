@@ -43,6 +43,10 @@ function onParkingReservationsLoadedForList() {
 		var parkingRow = document.createElement("tr");
 		parkingReservationTable.appendChild(parkingRow);
 
+		var parkingReservationCell = document.createElement("td");
+		parkingReservationCell.innerText = parking_reservations[i].parking_reservation;
+		parkingRow.appendChild(parkingReservationCell);
+
 		var parkingNumberCell = document.createElement("td");
 		parkingNumberCell.innerText = parking_reservations[i].parking_number;
 		parkingRow.appendChild(parkingNumberCell);

@@ -14,6 +14,7 @@
 <table>
 	<thead>
 		<tr>
+			<th>Reservation</th>
 			<th>Parkplatz</th>
 			<th>Name</th>
 			<th>Start Time</th>

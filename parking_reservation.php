@@ -8,6 +8,11 @@
 <!--div to select Parking Number-->
 <form onsubmit="onEditParkingReservationFormSubmitted(event);">
 	<div class="field">
+		<label for="parking-reservation-field">Reservation: </label>
+		<input type="text" id="parking-reservation-field" required>
+	</div>	
+
+	<div class="field">
 		<label for="parking-number-select">Parkplatz: </label>
 		<select id="parking-number-select" required>
 			<option value="">(Keine Parkplätze)</option>

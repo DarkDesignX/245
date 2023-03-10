@@ -50,12 +50,23 @@
 
         $request_body_string = file_get_contents("php://input");
         $request_data = json_decode($request_body_string, true);
+        $parking_reservation = trim($request_data["parking_reservation"]);
         $parking_number = trim($request_data["parking_number"]);
         $name = trim($request_data["name"]);
         $time_start = trim($request_data["time_start"]);
         $time_end = trim($request_data["time_end"]);
+        $comment = trim($request_data["comment"]);
     
+<<<<<<< HEAD
         //send a error by empty parking number
+=======
+        if (empty($parking_reservation)) {
+            error_function(400, "The (parking_reservation) field must not be empty.");
+        } elseif (strlen($parking_reservation) > 100) {
+            error_function(400, "The (parking_reservation) field must be less than 256 characters.");
+        }
+
+>>>>>>> 10571c31b697ea17f560df668775fa9412bf661c
         if (empty($parking_number)) {
             error_function(400, "The (parking_number) field must not be empty.");
         } elseif (!ctype_digit($parking_number)) {
@@ -84,9 +95,19 @@
         } elseif (strlen($time_end) > 256) {
             error_function(400, "The (time_end) field must be less than 256 characters.");
         }
+
+        if (empty($comment)) {
+            error_function(400, "The (comment) field must not be empty.");
+        } elseif (strlen($comment) > 1000) {
+            error_function(400, "The (comment) field must be less than 256 characters.");
+        }
     
+<<<<<<< HEAD
          //send a success message or an error
         if (create_parking_reservation($parking_number, $name, $time_start, $time_end) === true) {
+=======
+        if (create_parking_reservation($parking_number, $name, $time_start, $time_end, $comment) === true) {
+>>>>>>> 10571c31b697ea17f560df668775fa9412bf661c
             message_function(200, "The parking reservation was succsessfuly created.");
         } else {
             error_function(500, "An error occurred while saving the new reservation.");
@@ -112,7 +133,18 @@
 		
 		$request_data = json_decode($request_body_string, true);
 
+<<<<<<< HEAD
         //a lot characters errors
+=======
+        if (isset($request_data["parking_reservation"])) {
+			$parking_reservation = strip_tags(addslashes($request_data["parking_reservation"]));
+			if (strlen($parking_reservation) > 100) {
+                error_function(400, "The (parking_reservation) field must be less than 100 characters.");
+            }
+            $parking["parking_reservation"] = $parking_reservation;
+        }
+
+>>>>>>> 10571c31b697ea17f560df668775fa9412bf661c
         if (isset($request_data["parking_number"])) {
 			$parking_number = strip_tags(addslashes($request_data["parking_number"]));
             if (strlen($parking_number) > 11) {
@@ -144,8 +176,16 @@
 			}
 			$parking["time_end"] = $time_end;
 		}
+
+        if (isset($request_data["comment"])) {
+			$comment = strip_tags(addslashes($request_data["comment"]));
+			if (strlen($comment) > 1000) {
+				error_funciton(400, "The (comment) field must be less than 1000 characters.");
+			}
+			$parking["comment"] = $comment;
+		}
 		
-		if (update_parking_reservation($id, $parking["parking_number"], $parking["name"], $parking["time_start"], $parking["time_end"])) {
+		if (update_parking_reservation($id, $parking["parking_reservation"], $parking["parking_number"], $parking["name"], $parking["time_start"], $parking["time_end"], $parking["comment"])) {
 			message_function(200, "The parking reservation data were successfully updated");
 		}
 		else {
