@@ -71,7 +71,7 @@ $.ajax({
       var newRow = '<tr>' +
         '<td>' + row.name + '</td>' +
         '<td>' + row.parking + '</td>' +
-        '<td>' + row.LicensePlate + '</td>' +
+        '<td>' + row.licensePlate + '</td>' +
         '<td>' + row.startDate + '</td>' +
         '<td>' + row.endDate + '</td>' +
         '</tr>';

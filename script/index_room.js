@@ -32,14 +32,13 @@ document.addEventListener('DOMContentLoaded', function() {
       if (xhr.status === 200) {
 
         var data = JSON.parse(xhr.responseText);
-        var row = parkingTable.insertRow();
+        var row = roomTable.insertRow();
         var nameCell = row.insertCell();
         var roomCell = row.insertCell();
         var startDateCell = row.insertCell();
         var endDateCell = row.insertCell();
-        nameCell.textContent = data.owner;
-        roomCell.textContent = data.car;
-        roomnumberCell.textContent = data.roomnumber;
+        nameCell.textContent = data.name;
+        roomCell.textContent = data.room;
         startDateCell.textContent = data.startDate;
         endDateCell.textContent = data.endDate;
       } else {
@@ -61,13 +60,13 @@ $.ajax({
   url: "./backend/backend-script_room.php",
   dataType: "json",
   success: function(data) {
-    var tbody = document.querySelector('#parkingLotTable');
+    var tbody = document.querySelector('#roomTable');
     tbody.innerText = '';
 
     data.forEach(function(row) {
       var newRow = '<tr>' +
-        '<td>' + row.Name + '</td>' +
-        '<td>' + row.Room + '</td>' +
+        '<td>' + row.name + '</td>' +
+        '<td>' + row.room + '</td>' +
         '<td>' + row.startDate + '</td>' +
         '<td>' + row.endDate + '</td>' +
         '</tr>';
