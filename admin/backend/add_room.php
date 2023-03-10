@@ -19,7 +19,7 @@ $startDate = $_POST['startDate'];
 $endDate = $_POST['endDate'];
 
 
-$sql = "INSERT INTO registration_room (Name, Room, startDate, ExitDate)
+$sql = "INSERT INTO registration_room (name, room, startDate, ExitDate)
 VALUES ('$name', '$room', '$startDate', '$endDate')";
 
 if (mysqli_query($conn, $sql)) {

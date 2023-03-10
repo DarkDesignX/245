@@ -21,7 +21,7 @@ $endDate = $_POST['endDate'];
 
 
 $sql = "INSERT INTO reservation_parking (name, parking, LicensePlate, startDate, endDate)
-VALUES ('$name', '$parkplatz', '$licensePlate', '$startDate', '$endDate')";
+VALUES ('$name', '$parking', '$licensePlate', '$startDate', '$endDate')";
 
 if (mysqli_query($conn, $sql)) {
   echo "New parking reservation created successfully";
