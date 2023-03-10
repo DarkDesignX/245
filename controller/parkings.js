@@ -1,12 +1,8 @@
-//create variable
 var loadParkingsCallback = null;
-//create variable get parkings-reservation table by id
 var parkingsTable = document.getElementById("parkings-table");
 
-//create variable
 var parkings = [ ];
 
-//function to load parking
 function loadParking(callback = null) {
 	loadParkingsCallback = callback;
 
@@ -24,14 +20,12 @@ function onParkingsLoaded(request) {
 	}
 }
 
-//error by load parking 
 function onParkingsLoadingError(request) {
 	if (request && request.status != 401) {
 		alert("Could not load the parkings because of the following error:\r\n\r\n" + request.responseText);
 	}
 }
 
-//function to load the list of parkings
 function loadParkingList() {
 	loadParking(onParkingsLoadedForList);
 }

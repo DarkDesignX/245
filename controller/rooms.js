@@ -1,12 +1,8 @@
-//create variable
 var loadRoomsCallback = null;
-//create variable get rooms-reservation table by id
 var roomsTable = document.getElementById("rooms-table");
 
-//create variable
 var rooms = [ ];
 
-//function to load room
 function loadRoom(callback = null) {
 	loadRoomsCallback = callback;
 
@@ -24,14 +20,12 @@ function onRoomsLoaded(request) {
 	}
 }
 
-//error by load room 
 function onRoomsLoadingError(request) {
 	if (request && request.status != 401) {
 		alert("Could not load the rooms because of the following error:\r\n\r\n" + request.responseText);
 	}
 }
 
-//function to load the list of rooms
 function loadRoomList() {
 	loadRoom(onRoomsLoadedForList);
 }

@@ -1,9 +1,7 @@
-//create variables
 var request = null;
 var currentSuccessCallback = null;
 var currentErrorCallback = null;
 
-//function to send request
 function sendRequest(method, url, successCallback, errorCallback, body = null) {
 	if (request) {
 		alert("A request is already running. Please wait until it finished and try again afterwards!");
@@ -11,7 +9,6 @@ function sendRequest(method, url, successCallback, errorCallback, body = null) {
 		return;
 	}
 
-	//get successful message or an error
 	currentSuccessCallback = successCallback;
 	currentErrorCallback = errorCallback;
 
@@ -32,7 +29,6 @@ function onReadyStateChange(event) {
 		return;
 	}
 
-	//the request is finished get a message on an error
 	var finishedRequest = request;
 	request = null;
 
@@ -46,12 +42,10 @@ function onReadyStateChange(event) {
 		return;
 	}
 
-	//the login status (login or logout)
 	if(loginStatus) {
 		loginStatus.href = 'logout.php';
 		loginStatus.updateButtonText('Ausloggen');
 	}
 
-	//finish the request
 	currentSuccessCallback(finishedRequest);
 }

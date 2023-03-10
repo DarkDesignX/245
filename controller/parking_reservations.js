@@ -1,12 +1,8 @@
-//create variable
 var loadParkingReservationsCallback = null;
-//create variable get parking-reservation table by id
 var parkingReservationTable = document.getElementById("parking-reservations-table");
 
-//create variable
 var parking_reservations = [ ];
 
-//function to load parking reservation
 function loadParkingReservation(callback = null) {
 	loadParkingReservationsCallback = callback;
 
@@ -24,14 +20,12 @@ function onParkingReservationsLoaded(request) {
 	}
 }
 
-//error by load parking reservation
 function onParkingReservationsLoadingError(request) {
 	if (request && request.status != 401) {
 		alert("Could not load the parking reservations because of the follwoing error:\r\n\r\n" +  request.responseText);
 	}
 }
 
-//function to load the list of parking reservations
 function loadParkingReservationList() {
 	loadParkingReservation(onParkingReservationsLoadedForList);
 }
@@ -80,7 +74,7 @@ function onParkingReservationsLoadedForList() {
 		actionsCell.appendChild(editButton);
 	}
 }
-//function to pressing the delete button
+
 function onDeleteButtonPressed(event) {
 	var id = event.currentTarget.getAttribute("parking-id");
 	if (!confirm("Are you sure that you want to delete the parking reservation with the parking number " + id + "?")) {
@@ -90,12 +84,10 @@ function onDeleteButtonPressed(event) {
 	sendRequest("DELETE", "API/v1/ParkingReservation/" + id, onParkingReservationDeleted, onParkingReservationDeletionError);
 }
 
-//load parking reservations after the deleting of a reservation
 function onParkingReservationDeleted(request) {
 	loadParkingReservationList();
 }
- 
-//error by deleting the parking reservation
+
 function onParkingReservationDeletionError(request) {
 	alert("the parking reservation could not be deleted. Please try again!")
 }
