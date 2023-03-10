@@ -4,7 +4,6 @@
     use Psr\Http\Message\ServerRequestInterface as Request;
 
     $app->get("/Users", function (Request $request, Response $response, $args) {
-        validate_token(); 
 
         $users = get_all_users();
 

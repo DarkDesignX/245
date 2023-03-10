@@ -3,7 +3,6 @@
 	use Psr\Http\Message\ServerRequestInterface as Request;
 
 	$app->get("/RoomReservation/{room_reservation_id}", function (Request $request, Response $response, $args) {
-        validate_token(); 
         
         $id = $args["room_reservation_id"];
 		$room = get_room_reservation($id);
@@ -22,7 +21,6 @@
     });
 
 	$app->get("/AllRoomReservations", function (Request $request, Response $response, $args) {
-        validate_token(); 
 
         $id = intval($args["room_reservation_id"]);
         $room = get_all_room_reservations();
@@ -41,7 +39,6 @@
     });
 
     $app->post("/RoomReservation", function (Request $request, Response $response, $args) {
-        validate_token();
 
         $request_body_string = file_get_contents("php://input");
         $request_data = json_decode($request_body_string, true);
@@ -97,8 +94,6 @@
     });
 
     $app->put("/RoomReservation/{room_reservation_id}", function (Request $request, Response $response, $args) {
-
-        validate_token();
 		
 		$id = $args["room_reservation_id"];
 		
@@ -173,7 +168,6 @@
 	});
 
     $app->delete("/RoomReservation/{room_reservation_id}", function (Request $request, Response $response, $args) {
-        validate_token();
 		
 		$id = intval($args["room_reservation_id"]);
 		$result = delete_room_reservation($id);

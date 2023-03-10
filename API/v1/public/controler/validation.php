@@ -18,34 +18,4 @@
         return $_float;
     }
     
-    require_once "controler/secret.php";
-
-    function create_token($username, $password_hash, $id) {
-        global $secret;
-        $token = $username . $secret . $password_hash;
-        $token = hash("sha256", $token);
-        $token = $token . "[tr]" . $id;
-        return $token;
-    }
-
-    function validate_token($token = false) {
-
-        $the_set_token = validate_string($_COOKIE["token"]);
-        
-        if ($the_set_token === false) {
-            error_function(403, "no token");
-        }
-
-        $token_exploded = explode("[tr]", $the_set_token);
-
-        $user = get_user_by_id($token_exploded[1]); 
-
-        $user_token = create_token($user["Username"], $user["Password"], $token_exploded[1]);
-
-
-        if ($user_token === $the_set_token) {
-            return $token_exploded[1];
-        }
-        error_function(403, "Authentication failed");
-    }
 ?>

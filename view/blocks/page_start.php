@@ -14,7 +14,7 @@
 			<a href="rooms.php">Räume</a>
 			<a href="parkings.php">Parkplätze</a>
 			<a href="reservations.php">Buchungen</a>
-			<a id="login-status" href="#">Einloggen</a>
+			<a href="index.php">Log Out</a>
 		</nav>
 		<div class="content-container">
 			<div class="content">

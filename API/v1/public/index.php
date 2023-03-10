@@ -26,53 +26,6 @@
 
     $app->setBasePath("/API/v1");
 
-    $app->post("/Login", function (Request $request, Response $response, $args) {
-
-        $body_content = file_get_contents("php://input");
-        $JSON_data = json_decode($body_content, true);
-
-        if (isset($JSON_data["username"]) && isset($JSON_data["password"])) {
-        } else {
-            error_function(400, "Empty request");
-        }
-
-        $username = validate_string($JSON_data["username"]);
-        $password = validate_string($JSON_data["password"]);
-
-        if (!$password) {
-            error_function(400, "password is invalid");
-        }
-        if (!$username) {
-            error_function(400, "username is invalid");
-        }
-            
-        $password = hash("sha256", $password);
-
-        $user = get_user_by_username($username);
-
-        if ($user["Password"] !==  $password) {
-            error_function(404, "'$password' + '$username' is not found");   
-        }
-
-        $token = create_token($username, $password, $user["ID"]);
-
-        setcookie("token", $token, time() + 3600);
-
-        message_function(200, "Successfully logged in and Token created. Time: 1h");
-
-        return $response;
-    });
-
-    function user_validation($required_type = null) {
-        $current_user_id = validate_token();
-        $current_user_type = get_user_type($current_user_id);
-
-        if ($required_type !== null && $current_user_type !== $required_type) {
-            error_function(403, "Unauthenticated");
-        }
-        return $current_user;
-    }
-
     require "controler/routes/users.php";
     require "controler/routes/parking_reservations.php";
     require "controler/routes/room_reservations.php";

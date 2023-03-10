@@ -1,7 +1,6 @@
 			</div>
 		</div>
 	</body>
-	<?php require "view/blocks/login_form.php"; ?>
 	<br>
 	<br>
 	<footer>

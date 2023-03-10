@@ -37,7 +37,6 @@
     });
 
     $app->post("/Parking", function (Request $request, Response $response, $args) {
-        validate_token();
 
         $request_body_string = file_get_contents("php://input");
         $request_data = json_decode($request_body_string, true);
@@ -60,7 +59,6 @@
     });
 
     $app->delete("/Parking/{id}", function (Request $request, Response $response, $args) {
-        validate_token();
 		
 		$id = intval($args["id"]);
 		$result = delete_parking($id);

@@ -3,7 +3,6 @@
 	use Psr\Http\Message\ServerRequestInterface as Request;
 
 	$app->get("/ParkingReservation/{parking_reservation_id}", function (Request $request, Response $response, $args) {
-        validate_token(); 
 
         $id = $args["parking_reservation_id"];
 		$parking = get_parking_reservation($id);
@@ -22,7 +21,6 @@
     });
 
 	$app->get("/AllParkingReservations", function (Request $request, Response $response, $args) {
-        validate_token(); 
 
         $id = intval($args["parking_reservation_id"]);
         $parking = get_all_parking_reservations();
@@ -41,7 +39,6 @@
     });
 
     $app->post("/ParkingReservation", function (Request $request, Response $response, $args) {
-        validate_token();
 
         $request_body_string = file_get_contents("php://input");
         $request_data = json_decode($request_body_string, true);
@@ -99,8 +96,6 @@
     });
 
     $app->put("/ParkingReservation/{parking_reservation_id}", function (Request $request, Response $response, $args) {
-
-        validate_token();
 		
 		$id = $args["parking_reservation_id"];
 		
@@ -174,7 +169,6 @@
 	});
 
     $app->delete("/ParkingReservation/{parking_reservation_id}", function (Request $request, Response $response, $args) {
-        validate_token();
 		
 		$id = intval($args["parking_reservation_id"]);
 		$result = delete_parking_reservation($id);

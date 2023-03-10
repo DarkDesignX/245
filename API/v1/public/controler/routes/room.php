@@ -37,7 +37,6 @@
     });
 
 	$app->post("/Room", function (Request $request, Response $response, $args) {
-        validate_token();
 
         $request_body_string = file_get_contents("php://input");
         $request_data = json_decode($request_body_string, true);
@@ -79,9 +78,7 @@
     });
 
 	$app->delete("/Room/{id}", function (Request $request, Response $response, $args) {
-		
-        validate_token();
-		
+				
 		$id = intval($args["id"]);
 		
 		$result = delete_room($id);

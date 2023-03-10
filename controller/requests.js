@@ -30,21 +30,12 @@ function onReadyStateChange(event) {
 	}
 
 	var finishedRequest = request;
-	request = null;
-
-	if (finishedRequest.status == 401) {
-		loginOverlay.show();
-	}	
+	request = null;	
 
 	if (finishedRequest.status != 200 && finishedRequest.status != 201) {
 		currentErrorCallback(finishedRequest);
 
 		return;
-	}
-
-	if(loginStatus) {
-		loginStatus.href = 'logout.php';
-		loginStatus.updateButtonText('Ausloggen');
 	}
 
 	currentSuccessCallback(finishedRequest);
