@@ -1,11 +1,14 @@
+//create variable
 var room_name = null;
 
+//create variable and get room information by id
 var userNameField = document.getElementById("name-field");
 var startTimeField = document.getElementById("start-time-field");
 var endTimeField = document.getElementById("end-time-field");
 var commentField = document.getElementById("comment-field");
 var roomNameSelect = document.getElementById("room-name-select");
 
+//function to edit the room reservations
 function onEditRoomReservationFormSubmitted(event) {
 	event.preventDefault();
 
@@ -20,16 +23,19 @@ function onEditRoomReservationFormSubmitted(event) {
 	sendRequest("PUT", "API/v1/RoomReservation/" + roomNameSelect.value, onRoomReservationSaved, onRoomReservationSavingError, room_reservation);
 }
 
+//room reservation saved
 function onRoomReservationSaved(request) {
 	window.open("room_reservations.php", "_self");
 }
 
+//error by saving room reservation 
 function onRoomReservationSavingError(request) {
 	if (request) {
 		alert("Could not save the room reservation information because of the following error:\r\n\r\n" + request.responseText);
 	}
 }
 
+//function to load room reservation
 function onRoomReservationLoaded(request) {
 	var room_reservation = JSON.parse(request.responseText);
 
@@ -40,6 +46,7 @@ function onRoomReservationLoaded(request) {
 	roomNameSelect.value = room_reservation.room_name;
 }
 
+//error by load room reservation
 function onRoomReservationLoadingError(request) {
 	if (request) {
 		alert("The requested room reservation could not be loaded because of the following error:\r\n\r\n" + request.responseText);

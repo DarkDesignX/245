@@ -1,3 +1,4 @@
+//create variable get login information by id
 var loginOverlay = document.getElementById("login-overlay");
 var loginStatus = document.querySelector("#login-status");
 
@@ -13,6 +14,7 @@ function authenticate(event) {
 	});
 }
 
+//button to loggin
 loginStatus.updateButtonText = function (newText) {
 	this.innerText = newText;
 }
@@ -30,10 +32,12 @@ loginOverlay.hide = function () {
 	this.classList.remove('visible');
 }
 
+//successfully login
 function onLoginSuccess(request) {
 	loginOverlay.classList.remove("visible");
 }
 
+//login faild
 function onLoginError(request) {
 	alert("Invalid credentials. Please try again!");
 }

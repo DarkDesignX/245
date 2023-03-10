@@ -2,12 +2,14 @@
 	use Psr\Http\Message\ResponseInterface as Response;
 	use Psr\Http\Message\ServerRequestInterface as Request;
 
+    //get room by parking reservation id
 	$app->get("/ParkingReservation/{parking_reservation_id}", function (Request $request, Response $response, $args) {
         validate_token(); 
 
         $id = $args["parking_reservation_id"];
 		$parking = get_parking_reservation($id);
 
+        //send a message or an error
 		if ($parking) {
             echo json_encode($parking);
 		}
@@ -21,12 +23,14 @@
         return $response;
     });
 
+    //get all parking reservations
 	$app->get("/AllParkingReservations", function (Request $request, Response $response, $args) {
         validate_token(); 
 
         $id = intval($args["parking_reservation_id"]);
         $parking = get_all_parking_reservations();
 
+        //send a message or an error
 		if ($parking) {
             echo json_encode($parking);
 		}
@@ -40,6 +44,7 @@
         return $response;
     });
 
+    //create parking reservations
     $app->post("/ParkingReservation", function (Request $request, Response $response, $args) {
         validate_token();
 
@@ -50,6 +55,7 @@
         $time_start = trim($request_data["time_start"]);
         $time_end = trim($request_data["time_end"]);
     
+        //send a error by empty parking number
         if (empty($parking_number)) {
             error_function(400, "The (parking_number) field must not be empty.");
         } elseif (!ctype_digit($parking_number)) {
@@ -58,24 +64,28 @@
             error_function(400, "The (parking_number) field must be less than 11 characters.");
         }
 
+        //send a error by empty renter name
         if (empty($name)) {
             error_function(400, "The (name) field must not be empty.");
         } elseif (strlen($name) > 256) {
             error_function(400, "The (name) field must be less than 256 characters.");
         }
 
+        //send a error by empty time_start
         if (empty($time_start)) {
             error_function(400, "The (time_start) field must not be empty.");
         } elseif (strlen($name) > 256) {
             error_function(400, "The (time_start) field must be less than 256 characters.");
         }
 
+        //send a error by empty time_end
         if (empty($time_end)) {
             error_function(400, "The (time_end) field must not be empty.");
         } elseif (strlen($time_end) > 256) {
             error_function(400, "The (time_end) field must be less than 256 characters.");
         }
     
+         //send a success message or an error
         if (create_parking_reservation($parking_number, $name, $time_start, $time_end) === true) {
             message_function(200, "The parking reservation was succsessfuly created.");
         } else {
@@ -84,6 +94,7 @@
         return $response;        
     });
 
+    //update parking reservation
     $app->put("/ParkingReservation/{parking_reservation_id}", function (Request $request, Response $response, $args) {
 
         validate_token();
@@ -92,6 +103,7 @@
 		
 		$parking = get_parking_reservation($id);
 		
+        //id not found error
 		if (!$parking) {
 			error(404, "No parking reservation found for the ID " . $id . ".");
 		}
@@ -100,6 +112,7 @@
 		
 		$request_data = json_decode($request_body_string, true);
 
+        //a lot characters errors
         if (isset($request_data["parking_number"])) {
 			$parking_number = strip_tags(addslashes($request_data["parking_number"]));
             if (strlen($parking_number) > 11) {
@@ -143,15 +156,18 @@
 
 	});
 
+    //delete parking reservations
     $app->delete("/ParkingReservation/{parking_reservation_id}", function (Request $request, Response $response, $args) {
         validate_token();
 		
 		$id = intval($args["parking_reservation_id"]);
 		$result = delete_parking_reservation($id);
 		
+        //there is no reservations found error
 		if (!$result) {
 			error_function(404, "No parking reservation found for the ID " . $id . ".");
 		}
+        //success message
 		else {
             message_function(200, "The parking reservation was succsessfuly deleted.");
         }

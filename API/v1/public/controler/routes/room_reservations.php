@@ -2,12 +2,14 @@
 	use Psr\Http\Message\ResponseInterface as Response;
 	use Psr\Http\Message\ServerRequestInterface as Request;
 
+    //get room by room reservation id
 	$app->get("/RoomReservation/{room_reservation_id}", function (Request $request, Response $response, $args) {
         validate_token(); 
         
         $id = $args["room_reservation_id"];
 		$room = get_room_reservation($id);
 
+        //send a message or an error
 		if ($room) {
             echo json_encode($room);
 		}
@@ -21,12 +23,14 @@
         return $response;
     });
 
+    //get all room reservations
 	$app->get("/AllRoomReservations", function (Request $request, Response $response, $args) {
         validate_token(); 
 
         $id = intval($args["room_reservation_id"]);
         $room = get_all_room_reservations();
 
+        //send a message or an error
 		if ($room) {
             echo json_encode($room);
 		}
@@ -40,6 +44,7 @@
         return $response;
     });
 
+    //create room reservations
     $app->post("/RoomReservation", function (Request $request, Response $response, $args) {
         validate_token();
 
@@ -50,30 +55,35 @@
         $time_start = trim($request_data["time_start"]);
         $time_end = trim($request_data["time_end"]);
 
+        //send a error by empty room name
         if (empty($room_name)) {
             error_function(400, "The (room_name) field must not be empty.");
         } elseif (strlen($room_name) > 50) {
             error_function(400, "The (room_name) field must be less than 256 characters.");
         }
 
+        //send a error by empty renter name
         if (empty($name)) {
             error_function(400, "The (name) field must not be empty.");
         } elseif (strlen($name) > 256) {
             error_function(400, "The (name) field must be less than 256 characters.");
         }
 
+        //send a error by empty time_start
         if (empty($time_start)) {
             error_function(400, "The (time_start) field must not be empty.");
         } elseif (strlen($time_start) > 256) {
             error_function(400, "The (time_start) field must be less than 256 characters.");
         }
 
+        //send a error by empty time_end
         if (empty($time_end)) {
             error_function(400, "The (time_end) field must not be empty.");
         } elseif (strlen($time_end) > 256) {
             error_function(400, "The (time_end) field must be less than 256 characters.");
         }
     
+        //send a success message or an error
         if (create_room_reservation($room_number, $room_name, $name, $time_start, $time_end) === true) {
             message_function(200, "The room reservation was succsessfuly created.");
         } else {
@@ -82,6 +92,7 @@
         return $response;        
     });
 
+    //update room reservation
     $app->put("/RoomReservation/{room_reservation_id}", function (Request $request, Response $response, $args) {
 
         validate_token();
@@ -89,7 +100,8 @@
 		$id = $args["room_reservation_id"];
 		
 		$room = get_room_reservation($id);
-		
+
+        //id not found error
 		if (!$room) {
 			error("No room reservation found for the ID " . $id . ".", 404);
 		}
@@ -98,6 +110,7 @@
 		
 		$request_data = json_decode($request_body_string, true);
 
+        //a lot characters errors
         if (isset($request_data["room_name"])) {
 			$room_name = strip_tags(addslashes($request_data["room_name"]));
 			if (strlen($room_name) > 256) {
@@ -141,15 +154,18 @@
 		return $response;
 	});
 
+    //delete room reservations
     $app->delete("/RoomReservation/{room_reservation_id}", function (Request $request, Response $response, $args) {
         validate_token();
 		
 		$id = intval($args["room_reservation_id"]);
 		$result = delete_room_reservation($id);
 		
+        //there is no reservations found error
 		if (!$result) {
 			error_function(404, "No room reservation found for the ID " . $id . ".");
 		}
+        //success message
 		else {
             message_function(200, "The room reservation was succsessfuly deleted.");
         }

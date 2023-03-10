@@ -1,3 +1,4 @@
+<!--open the html-->
 <!DOCTYPE html>
 <html>
 	<head>
@@ -8,8 +9,10 @@
 		<link rel="stylesheet" href="view/stylesheets/style.css">
 		<script src="controller/requests.js"></script>
 	</head>
+	<!--create body and add a navigation-->
 	<body>
 		<nav>
+			<!--connect navigation with the php documents-->
 			<a href="index.php">Home</a>
 			<a href="rooms.php">Räume</a>
 			<a href="parkings.php">Parkplätze</a>

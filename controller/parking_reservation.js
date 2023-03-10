@@ -1,11 +1,14 @@
+//create variable
 var parking_number = null;
 
+//create variable get parking information by id
 var userNameField = document.getElementById("name-field");
 var startTimeField = document.getElementById("start-time-field");
 var endTimeField = document.getElementById("end-time-field");
 var commentField = document.getElementById("comment-field");
 var parkingNumberSelect = document.getElementById("parking-number-select");
 
+//function to edit the parking reservations
 function onEditParkingReservationFormSubmitted(event) {
 	event.preventDefault();
 
@@ -20,16 +23,19 @@ function onEditParkingReservationFormSubmitted(event) {
 	sendRequest("PUT", "API/v1/ParkingReservation/" + parkingNumberSelect.value, onParkingReservationSaved, onParkingReservationSavingError, parking_reservation);
 }
 
+//parking reservation saved
 function onParkingReservationSaved(request) {
 	window.open("parking_reservations.php", "_self");
 }
 
+//error by saving parking reservation 
 function onParkingReservationSavingError(request) {
 	if (request) {
 		alert("Could not save the parking reservation information because of the following error:\r\n\r\n" + request.responseText);
 	}
 }
 
+//function to load parking reservation
 function onParkingReservationLoaded(request) {
 	var parking_reservation = JSON.parse(request.responseText);
 
@@ -40,6 +46,7 @@ function onParkingReservationLoaded(request) {
 	parkingNumberSelect.value = parking_reservation.parking_number;
 }
 
+//error by load parking reservation
 function onParkingReservationLoadingError(request) {
 	if (request) {
 		alert("The requested parking reservation could not be loaded because of the following error:\r\n\r\n" + request.responseText);
