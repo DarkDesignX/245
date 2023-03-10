@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./style/bootstrap.min.css" />
+    <link rel="stylesheet" href="./style/style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Parking Lot Management App</title>
+  </head>
+  <body class="background">
+    <header class="shadow">
+      <div class="header-content d-flex justify-content-center p-2">
+        <div id="header-msg" class="ml-5 align-self-center logoColor">Parking Lot Management App</div>
+        <div class="ml-5 align-self-center">
+          <a href="./parking.html" class="active headerlink">Parkplatz Reservation</a>
+          <a href="./room.html" class="navLinks headerlink">Raum Reservation</a>
+        </div>
+      </div>
+    </header>
+    <div class="form-container mt-5">
+      <form class="w-50 mx-auto" id="entryForm" method="post" action="add_parking.php">
+        <h5 class="text-center">Einen Parkplatz reservieren</h5>
+        <div class="form-group">
+          <label for="name">Name und Vorname:</label>
+          <input type="text" class="form-control rounded-0 shadow-sm" id="name" placeholder="Name und Vorname" />
+        </div>
+        <div class="form-group">
+          <label for="parking">Parkplatz:</label>
+          <input type="text" class="form-control rounded-0 shadow-sm" id="parking" placeholder="Parkplatz" />
+        </div>
+        <div class="form-group">
+          <label for="licensePlate">Nummernschild:</label>
+          <input type="text" class="form-control rounded-0 shadow-sm" id="licensePlate" placeholder="BE 00 00 00" />
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <label for="startDate">Von:</label>
+            <input type="date" class="form-control rounded-0 shadow-sm" id="startDate" />
+          </div>
+          <div class="col-6">
+            <label for="endDate">Bis:</label>
+            <input type="date" class="form-control rounded-0 shadow-sm" id="endDate" />
+          </div>
+        </div>
+        <button type="submit" style="color:#ffffff;" class="btn mx-auto d-block mt-5 rounded-0 shadow" id="btnOne">
+          Add parking
+        </button>
+      </form>
+    </div>
+    <div class="table-container mt-5 mb-5 w-75 mx-auto">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Parkplatz</th>
+            <th>Nummernschild</th>
+            <th>Von</th>
+            <th>Bis</th>
+          </tr>
+        </thead>
+        <tbody id="parkingLotTable">
+        </tbody>
+      </table>
+             <script src="./script/index.js"></script>        
+      </body>
+
+    </html>

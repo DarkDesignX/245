@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@500&display=swap');
+*{
+    font-family: 'Exo', sans-serif;
+    padding:0;
+    margin:0;
+    border:0;
+}
+.navLinks{
+    list-style: none;
+    padding: 0 20px;
+    color: white;
+}
+.navLinks li{
+    display: inline-block;
+    padding: 0 10px;
+}
+.active{
+    color: var(--secondary-color);
+}
+a:hover{
+    text-decoration: none;
+    color: var(--secondary-color);
+}
+header{
+    background-color: var(--main-color);
+}
+.background{
+    background-color: var(--secondary-color);
+}
+:root{
+    --main-color:rgb(0, 0, 0);
+    --secondary-color:rgb(255, 255, 255);
+    --third-color:rgb(0, 0, 0);
+    --fourth-color: rgb(255, 255, 255);
+}
+#header-logo{
+    width:64px;
+    height:64px;
+}
+#header-msg{
+    font-size: 25px;
+    color:var(--secondary-color);
+}
+#btnOne{
+    background-color: var(--main-color);
+}
+#btnOne:focus,#btnOne:hover{
+    box-shadow: none;
+    outline:none;
+}
+
+#tableHead{
+    background-color: var(--secondary-color);
+}
+#searchInput{
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    border-bottom: 1px solid #1d5ea0;
+}
+#searchInput:hover,#searchInput:focus{
+    box-shadow: none;
+    outline:none;
+}
