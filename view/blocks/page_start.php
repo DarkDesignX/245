@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<nav>
-			<a href="index.php">Home</a>
+			<a href="home.php">Home</a>
 			<a href="rooms.php">Räume</a>
 			<a href="parkings.php">Parkplätze</a>
 			<a href="reservations.php">Buchungen</a>

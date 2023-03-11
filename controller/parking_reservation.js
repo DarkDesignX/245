@@ -54,7 +54,6 @@ function onParkingReservationLoadingError(request) {
 	}
 }
 
-//needs fixing
 function onParkingsLoadedCallback() {
 	for (var i = 0; i < parkings.length; i++) {
 		var parkingOption = document.createElement("option");
@@ -76,4 +75,4 @@ function onParkingsLoadedCallback() {
 	}
 }
 
-loadParkings(onParkingsLoadedCallback);
+loadParking(onParkingsLoadedCallback);

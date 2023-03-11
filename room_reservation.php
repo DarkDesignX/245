@@ -4,7 +4,7 @@
 
 <form onsubmit="onEditRoomReservationFormSubmitted(event);">
 	<div class="field">
-		<label for="room-reservation-field">Reservation: </label>
+		<label for="room-reservation-field">Betreff: </label>
 		<input type="text" id="room-reservation-field" required>
 	</div>	
 

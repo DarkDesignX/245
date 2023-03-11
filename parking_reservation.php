@@ -4,7 +4,7 @@
 
 <form onsubmit="onEditParkingReservationFormSubmitted(event);">
 	<div class="field">
-		<label for="parking-reservation-field">Reservation: </label>
+		<label for="parking-reservation-field">Betreff: </label>
 		<input type="text" id="parking-reservation-field" required>
 	</div>	
 

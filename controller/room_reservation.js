@@ -55,7 +55,6 @@ function onRoomReservationLoadingError(request) {
 	}
 }
 
-//needs fixing
 function onRoomsLoadedCallback() {
 	for (var i = 0; i < rooms.length; i++) {
 		var roomOption = document.createElement("option");
@@ -77,4 +76,4 @@ function onRoomsLoadedCallback() {
 	}
 }
 
-loadRooms(onRoomsLoadedCallback);
+loadRoom(onRoomsLoadedCallback);
