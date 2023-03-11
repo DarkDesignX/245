@@ -24,7 +24,7 @@
 
     $app = AppFactory::create();
 
-    $app->setBasePath("/API/v1");
+    $app->setBasePath("/admin/API/v1");
 
     require "controler/routes/users.php";
     require "controler/routes/parking_reservations.php";
