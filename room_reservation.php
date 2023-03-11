@@ -22,12 +22,12 @@
 
 	<div class="field">
         <label for="start-time-field">Start Time: </label>
-		<input type="datetime-local" id="start-time" required>
+		<input type="datetime-local" id="start-time-field" required>
 	</div>
 
     <div class="field">
         <label for="end-time-field">End Time: </label>
-		<input type="datetime-local" id="end-time" required>
+		<input type="datetime-local" id="end-time-field" required>
 	</div>
 
 	<div class="field">

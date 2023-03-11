@@ -10,11 +10,7 @@
             error_function(500, "Error");
 		} else if ($result !== true) {
 			if ($result->num_rows > 0) {
-                $result_array = array();
-				while ($user = $result->fetch_assoc()) {
-                    $result_array[] = $user;
-                }
-                return $result_array;
+				return $result->fetch_assoc();
 			} else {
                 error_function(404, "not Found");
             }
@@ -46,10 +42,10 @@
         }
     }
 
-    function create_parking_reservation($parking_number, $name, $time_start, $time_end) {
+    function create_parking_reservation($parking_reservation, $parking_number, $name, $time_start, $time_end, $comment) {
         global $database;
 
-        $result = $database->query("INSERT INTO parking_reservations (parking_number,name, time_start, time_end) VALUES ('$parking_number','$name', '$time_start', '$time_end');");
+        $result = $database->query("INSERT INTO parking_reservations (parking_reservation, parking_number, name, time_start, time_end, comment) VALUES ('$parking_reservation','$parking_number','$name', '$time_start', '$time_end', '$comment');");
 
         if (!$result) {
             error_function(400, "An error occurred while creating the parking reservation.");
@@ -59,10 +55,10 @@
 		return true;
     }
 
-    function update_parking_reservation($id, $parking_number, $name, $time_start, $time_end) {
+    function update_parking_reservation($id, $parking_reservation, $parking_number, $name, $time_start, $time_end, $comment) {
 		global $database;
 
-		$result = $database->query("UPDATE parking_reservations SET parking_number = '$parking_number', name = '$name', time_start = '$time_start', time_end = '$time_end' WHERE parking_reservation_id = '$id';");
+		$result = $database->query("UPDATE parking_reservations SET parking_reservation = '$parking_reservation', parking_number = '$parking_number', name = '$name', time_start = '$time_start', time_end = '$time_end', comment = '$comment' WHERE parking_reservation_id = '$id';");
 
 		if (!$result) {
 			return false;
@@ -98,11 +94,7 @@
             error_function(500, "Error");
 		} else if ($result !== true) {
 			if ($result->num_rows > 0) {
-                $result_array = array();
-				while ($user = $result->fetch_assoc()) {
-                    $result_array[] = $user;
-                }
-                return $result_array;
+				return $result->fetch_assoc();
 			} else {
                 error_function(404, "not Found");
             }
@@ -134,10 +126,10 @@
         }
     }
 
-    function create_room_reservation($room_number, $room_name, $name, $time_start, $time_end) {
+    function create_room_reservation($room_reservation, $room_name, $name, $time_start, $time_end, $comment) {
         global $database;
 
-        $result = $database->query("INSERT INTO room_reservations (room_number,room_name, name, time_start, time_end) VALUES ('$room_number','$room_name', '$name', '$time_start', '$time_end');");
+        $result = $database->query("INSERT INTO room_reservations (room_reservation, room_name, name, time_start, time_end, comment) VALUES ('$room_reservation','$room_name', '$name', '$time_start', '$time_end', '$comment');");
 
         if (!$result) {
             error_function(400, "An error occurred while creating the room reservation.");
@@ -147,10 +139,10 @@
 		return true;
     }
 
-    function update_room_reservation($id, $room_number, $room_name, $name, $time_start, $time_end){
+    function update_room_reservation($id, $room_reservation, $room_name, $name, $time_start, $time_end, $comment){
 		global $database;
 
-		$result = $database->query("UPDATE room_reservations SET room_number = '$room_number', room_name = '$room_name', name = '$name', time_start = '$time_start', time_end = '$time_end' WHERE room_reservation_id = '$id';");
+		$result = $database->query("UPDATE room_reservations SET room_reservation = '$room_reservation', room_name = '$room_name', name = '$name', time_start = '$time_start', time_end = '$time_end', comment = '$comment' WHERE room_reservation_id = '$id';");
 
 		if (!$result) {
 			return false;

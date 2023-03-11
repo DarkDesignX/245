@@ -81,13 +81,11 @@
             error_function(400, "The (time_end) field must be less than 256 characters.");
         }
 
-        if (empty($comment)) {
-            error_function(400, "The (comment) field must not be empty.");
-        } elseif (strlen($comment) > 1000) {
+        if (strlen($comment) > 1000) {
             error_function(400, "The (comment) field must be less than 256 characters.");
         }
     
-        if (create_parking_reservation($parking_number, $name, $time_start, $time_end, $comment) === true) {
+        if (create_parking_reservation($parking_reservation, $parking_number, $name, $time_start, $time_end, $comment) === true) {
             message_function(200, "The parking reservation was succsessfuly created.");
         } else {
             error_function(500, "An error occurred while saving the new reservation.");

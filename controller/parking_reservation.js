@@ -11,10 +11,10 @@ function onEditParkingReservationFormSubmitted(event) {
 	event.preventDefault();
 
 	var parking_reservation = {
-		reservation: reservationField.value,
+		parking_reservation: reservationField.value,
 		name: userNameField.value,
-		startTime: startTimeField.value,
-		endTime: endTimeField.value,
+		time_start: startTimeField.value,
+		time_end: endTimeField.value,
 		comment: commentField.value ? commentField.value : null,
 		parking_number: parkingNumberSelect.value
 	};

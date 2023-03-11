@@ -11,10 +11,10 @@ function onEditRoomReservationFormSubmitted(event) {
 	event.preventDefault();
 
 	var room_reservation = {
-		reservation: reservationField.value,
+		room_reservation: reservationField.value,
 		name: userNameField.value,
-		startTime: startTimeField.value,
-		endTime: endTimeField.value,
+		time_start: startTimeField.value,
+		time_end: endTimeField.value,
 		comment: commentField.value ? commentField.value : null,
 		room_name: roomNameSelect.value
 	};
@@ -58,7 +58,7 @@ function onRoomReservationLoadingError(request) {
 function onRoomsLoadedCallback() {
 	for (var i = 0; i < rooms.length; i++) {
 		var roomOption = document.createElement("option");
-		roomOption.value = rooms[i].id;
+		roomOption.value = rooms[i].name;
 		roomOption.innerText = rooms[i].name;
 		roomNameSelect.appendChild(roomOption);
 	}
