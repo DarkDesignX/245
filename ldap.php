@@ -14,7 +14,7 @@
 		include("home.php");
 		exit();
 	} elseif ($ldap_dn2 != NULL && @ldap_bind($ldap_con, $ldap_dn2, $ldap_password)) {
-		header("Location: ...");
+		header("Location: ./admin/home.php.");
 		exit();
 	} else {
 		echo "Ungültige Anmeldedaten";

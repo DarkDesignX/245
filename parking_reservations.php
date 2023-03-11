@@ -12,7 +12,6 @@
 			<th>Name</th>
 			<th>Start Time</th>
 			<th>End Time</th>
-			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody id="parking-reservations-table"></tbody>

@@ -57,37 +57,37 @@ function onParkingReservationsLoadedForList() {
 		timeEndCell.innerText = parking_reservations[i].time_end;
 		parkingRow.appendChild(timeEndCell);
 
-		var actionsCell = document.createElement("td");
-		parkingRow.appendChild(actionsCell);
+		// var actionsCell = document.createElement("td");
+		// parkingRow.appendChild(actionsCell);
 
-		var deleteButton = document.createElement("button");
-		deleteButton.innerText = "Delete";
-		deleteButton.onclick = onDeleteButtonPressed;
-		deleteButton.className = "destructive";
-		deleteButton.setAttribute("parking-id", parking_reservations[i].parking_reservation_id);
-		actionsCell.appendChild(deleteButton);
+		// var deleteButton = document.createElement("button");
+		// deleteButton.innerText = "Delete";
+		// deleteButton.onclick = onDeleteButtonPressed;
+		// deleteButton.className = "destructive";
+		// deleteButton.setAttribute("parking-id", parking_reservations[i].parking_reservation_id);
+		// actionsCell.appendChild(deleteButton);
 
-		var editButton = document.createElement("a");
-		editButton.innerText = "Edit";
-		editButton.className = "button";
-		editButton.href = "parking_reservation.php?id=" + parking_reservations[i].parking_reservation_id;
-		actionsCell.appendChild(editButton);
+		// var editButton = document.createElement("a");
+		// editButton.innerText = "Edit";
+		// editButton.className = "button";
+		// editButton.href = "parking_reservation.php?id=" + parking_reservations[i].parking_reservation_id;
+		// actionsCell.appendChild(editButton);
 	}
 }
 
-function onDeleteButtonPressed(event) {
-	var id = event.currentTarget.getAttribute("parking-id");
-	if (!confirm("Are you sure that you want to delete the parking reservation with the parking number " + id + "?")) {
-		return;
-	}
+// function onDeleteButtonPressed(event) {
+// 	var id = event.currentTarget.getAttribute("parking-id");
+// 	if (!confirm("Are you sure that you want to delete the parking reservation with the parking number " + id + "?")) {
+// 		return;
+// 	}
 
-	sendRequest("DELETE", "API/v1/ParkingReservation/" + id, onParkingReservationDeleted, onParkingReservationDeletionError);
-}
+// 	sendRequest("DELETE", "API/v1/ParkingReservation/" + id, onParkingReservationDeleted, onParkingReservationDeletionError);
+// }
 
-function onParkingReservationDeleted(request) {
-	loadParkingReservationList();
-}
+// function onParkingReservationDeleted(request) {
+// 	loadParkingReservationList();
+// }
 
-function onParkingReservationDeletionError(request) {
-	alert("the parking reservation could not be deleted. Please try again!")
-}
+// function onParkingReservationDeletionError(request) {
+// 	alert("the parking reservation could not be deleted. Please try again!")
+// }

@@ -57,21 +57,21 @@ function onRoomReservationsLoadedForList(request) {
 		timeEndCell.innerText = room_reservations[i].time_end;
 		roomRow.appendChild(timeEndCell);
 
-		var actionsCell = document.createElement("td");
-		roomRow.appendChild(actionsCell);
+		// var actionsCell = document.createElement("td");
+		// roomRow.appendChild(actionsCell);
 
-		var deleteButton = document.createElement("button");
-		deleteButton.innerText = "Delete";
-		deleteButton.onclick = onDeleteButtonPressed;
-		deleteButton.className = "destructive";
-		deleteButton.setAttribute("room-id", room_reservations[i].room_reservation_id);
-		actionsCell.appendChild(deleteButton);
+		// var deleteButton = document.createElement("button");
+		// deleteButton.innerText = "Delete";
+		// deleteButton.onclick = onDeleteButtonPressed;
+		// deleteButton.className = "destructive";
+		// deleteButton.setAttribute("room-id", room_reservations[i].room_reservation_id);
+		// actionsCell.appendChild(deleteButton);
 
-		var editButton = document.createElement("a");
-		editButton.innerText = "Edit";
-		editButton.className = "button";
-		editButton.href = "room_reservation.php?id=" + room_reservations[i].room_reservation_id;
-		actionsCell.appendChild(editButton);
+		// var editButton = document.createElement("a");
+		// editButton.innerText = "Edit";
+		// editButton.className = "button";
+		// editButton.href = "room_reservation.php?id=" + room_reservations[i].room_reservation_id;
+		// actionsCell.appendChild(editButton);
 	}
 }
 
@@ -83,19 +83,19 @@ function onRoomReservationsLoadingError(request) {
 	alert("Error: " + request.statusText);
 }
 
-function onDeleteButtonPressed(event) {
-	var id = event.currentTarget.getAttribute("room-id");
-	if (!confirm("Are you sure that you want to delete the room reservation with the room id " + id + "?")) {
-		return;
-	}
+// function onDeleteButtonPressed(event) {
+// 	var id = event.currentTarget.getAttribute("room-id");
+// 	if (!confirm("Are you sure that you want to delete the room reservation with the room id " + id + "?")) {
+// 		return;
+// 	}
 
-	sendRequest("DELETE", "API/v1/RoomReservation/" + id, onRoomReservationDeleted, onRoomReservationDeletionError);
-}
+// 	sendRequest("DELETE", "API/v1/RoomReservation/" + id, onRoomReservationDeleted, onRoomReservationDeletionError);
+// }
 
-function onRoomReservationDeleted(request) {
-	loadRoomReservationList();
-}
+// function onRoomReservationDeleted(request) {
+// 	loadRoomReservationList();
+// }
 
-function onRoomReservationDeletionError(request) {
-	alert("the room reservation could not be deleted. Please try again!")
-}
+// function onRoomReservationDeletionError(request) {
+// 	alert("the room reservation could not be deleted. Please try again!")
+// }
