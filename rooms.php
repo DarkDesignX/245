@@ -18,6 +18,13 @@
 <div style="margin-bottom: 2em;">
 	<a href="room_reservation.php" class="button">Einen Raum Reservieren</a>
 </div>
+
+</div>
+
+<div>
+	<img src="images/CsBe.png" alt="EG" width="1200">
+</div>
+
 <script src="controller/rooms.js"></script>
 <script>loadRoomList();</script>
 <?php require "view/blocks/page_end.php"; ?>

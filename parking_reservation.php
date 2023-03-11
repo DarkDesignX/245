@@ -40,6 +40,11 @@
 	</div>
 </form>
 
+</div>
+<div>
+	<img src="images/Park.png" alt="Parkings" width="500">
+</div>
+
 <script src="controller/parkings.js"></script>
 <script src="controller/parking_reservation.js"></script>
 <?php require "view/blocks/page_end.php"; ?>

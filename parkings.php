@@ -15,6 +15,12 @@
 <div style="margin-bottom: 2em;">
 	<a href="parking_reservation.php" class="button">Einen Parkplatz reservieren</a>
 </div>
+
+</div>
+<div>
+	<img src="images/Park.png" alt="Parkings" width="500">
+</div>
+
 <script src="controller/parkings.js"></script>
 <script>loadParkingList();</script>
 <?php require "view/blocks/page_end.php"; ?>

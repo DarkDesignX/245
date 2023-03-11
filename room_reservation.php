@@ -40,6 +40,12 @@
 	</div>
 </form>
 
+</div>
+
+<div>
+	<img src="images/CsBe.png" alt="EG" width="1200">
+</div>
+
 <script src="controller/rooms.js"></script>
 <script src="controller/room_reservation.js"></script>
 <?php require "view/blocks/page_end.php"; ?>
