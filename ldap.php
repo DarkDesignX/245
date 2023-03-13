@@ -1,7 +1,7 @@
 <?php
 	
 	$ldap_dn1 = "cn=".$_POST["username"].",ou=Benutzer,ou=CSBE.LOCAL,dc=csbe,dc=local";
-	$ldap_dn2 = "cn=".$_POST["username"].",ou=Administrator, ou=CSBE.LOCAL,dc=csbe,dc=local";
+	$ldap_dn2 = "cn=".$_POST["username"].",ou=Administratoren, ou=CSBE.LOCAL,dc=csbe,dc=local";
 	$ldap_password = $_POST["password"];
 	
 	$ldap_con = ldap_connect("ldap://192.168.178.10");
