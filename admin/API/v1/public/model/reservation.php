@@ -52,6 +52,42 @@
             return false;
         }
 
+        // Reservation created successfully, generate ICS file and send confirmation email to user
+        $to = "morhaf.alnhlawe@gmail.com";
+        $subject = "Parking Reservation Confirmation";
+        $message = $message = "Sehr geehrte Damen und Herren
+        \n\nDas Parkplatz $parking_number ist durch $name reserviert.
+        \nVon: $time_start\nBis: $time_end
+        \n\nFreundliche Gruesse
+        \nBDM Reservations Team";
+        $headers = "From: morhaf.alnhlawe@gmail.com";
+        $filename = "parking_reservation.ics";
+        $uid = uniqid();
+    
+        $ics_content = "BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Our Company//NONSGML Event Calendar//EN
+BEGIN:VEVENT
+UID:" . $uid . "
+DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
+DTSTART:$time_start
+DTEND:$time_end
+SUMMARY:Parking Reservation
+DESCRIPTION:$comment
+LOCATION:Parking spot #$parking_number
+END:VEVENT
+END:VCALENDAR";
+            
+                $attachment = chunk_split(base64_encode($ics_content));
+            
+                $headers .= "\nMIME-Version: 1.0\nContent-Type: multipart/mixed;\n boundary=\"mixed-".md5($filename)."\"";
+                $message = "--mixed-".md5($filename)."\nContent-Type: multipart/alternative;\n boundary=\"alt-".md5($filename)."\"\n\n--alt-".md5($filename)."\nContent-Type: text/plain; charset=\"iso-8859-1\"\nContent-Transfer-Encoding: 7bit\n\n".$message."\n\n--alt-".md5($filename)."--\n\n--mixed-".md5($filename)."\nContent-Type: text/calendar; name=\"$filename\"\nContent-Transfer-Encoding: base64\nContent-Disposition: attachment;\n filename=\"$filename\"\n\n$attachment\n\n--mixed-".md5($filename)."--";
+            
+                if (!mail($to, $subject, $message, $headers)) {
+                    error_function(500, "An error occurred while sending the confirmation email.");
+                    return false;
+                }
+
 		return true;
     }
 
@@ -136,6 +172,42 @@
             return false;
         }
 
+        // Reservation created successfully, generate ICS file and send confirmation email to user
+        $to = "morhaf.alnhlawe@gmail.com";
+        $subject = "Room Reservation Confirmation";
+        $message = "Sehr geehrte Damen und Herren
+        \n\nDas Zimmer $room_name ist durch $name reserviert.
+        \nVon: $time_start
+        \nBis: $time_end
+        \n\nFreundliche Gruesse
+        \nBDM Reservations Team";
+        $headers = "From: morhaf.alnhlawe@gmail,com";
+        $filename = "room_reservation.ics";
+        
+        $ics_content = "BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Our Company//NONSGML Event Calendar//EN
+BEGIN:VEVENT
+UID:" . uniqid() . "@yourdomain.com
+DTSTAMP:" . gmdate('Ymd').'T'. gmdate('His') . "Z
+DTSTART:$time_start
+DTEND:$time_end
+SUMMARY:Room Reservation
+DESCRIPTION:$comment
+LOCATION:$room_name
+END:VEVENT
+END:VCALENDAR";
+            
+                $attachment = chunk_split(base64_encode($ics_content));
+            
+                $headers .= "\nMIME-Version: 1.0\nContent-Type: multipart/mixed;\n boundary=\"mixed-".md5($filename)."\"";
+                $message = "--mixed-".md5($filename)."\nContent-Type: multipart/alternative;\n boundary=\"alt-".md5($filename)."\"\n\n--alt-".md5($filename)."\nContent-Type: text/plain; charset=\"iso-8859-1\"\nContent-Transfer-Encoding: 7bit\n\n".$message."\n\n--alt-".md5($filename)."--\n\n--mixed-".md5($filename)."\nContent-Type: text/calendar; name=\"$filename\"\nContent-Transfer-Encoding: base64\nContent-Disposition: attachment;\n filename=\"$filename\"\n\n$attachment\n\n--mixed-".md5($filename)."--";
+            
+                if (!mail($to, $subject, $message, $headers)) {
+                    error_function(500, "An error occurred while sending the confirmation email.");
+                    return false;
+                }
+                    
 		return true;
     }
 
